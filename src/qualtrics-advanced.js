@@ -1,4 +1,4 @@
-var map; 
+var map;
 
 var MAPBOX_TOKEN = "pk.eyJ1IjoiY21jY2FydGFuIiwiYSI6ImNrZGdkdW9waTA1eGEycmxycnQzZ3o4c3kifQ.v_XViAm-nItfHgx0J3Xg3A";
 var BASEURL = "https://cdn.jsdelivr.net/gh/CoryMcCartan/neighborhood-survey/docs/assets/";
@@ -9,8 +9,8 @@ Qualtrics.SurveyEngine.addOnload(function() {
 
     let overlays = {
         P: {
-            "fill-color": ["interpolate-hcl", 
-                ["linear"], 
+            "fill-color": ["interpolate-hcl",
+                ["linear"],
                 ["get", "dem"],
                 0.2, "#c44075",
                 0.5, "rgba(255, 255, 255, 0)",
@@ -24,10 +24,10 @@ Qualtrics.SurveyEngine.addOnload(function() {
 
                 ["all",
                     [">", ["get", "pop_black"], ["get", "pop_white"]],
-                    [">", ["*", 2, ["get", "pop_black"]], 
+                    [">", ["*", 2, ["get", "pop_black"]],
                         ["-", ["get", "pop"], ["get", "pop_white"]]]
                 ], [
-                    "interpolate-hcl", ["linear"], 
+                    "interpolate-hcl", ["linear"],
                     ["/", ["get", "pop_black"], ["get", "pop"]], // value
                     0.35, "rgba(255, 255, 255, 0)",
                     1, "#b09a00",
@@ -35,18 +35,18 @@ Qualtrics.SurveyEngine.addOnload(function() {
 
                 ["all",
                     [">", ["get", "pop_white"], ["get", "pop_black"]],
-                    [">", ["*", 2, ["get", "pop_white"]], 
+                    [">", ["*", 2, ["get", "pop_white"]],
                         ["-", ["get", "pop"], ["get", "pop_black"]]]
                 ], [
-                    "interpolate-hcl", ["linear"], 
+                    "interpolate-hcl", ["linear"],
                     ["/", ["get", "pop_white"], ["get", "pop"]], // value
                     0.4, "rgba(255, 255, 255, 0)",
                     1, "#c44075",
                 ],
 
                 [
-                    "interpolate-hcl", ["linear"], 
-                    ["-", 1, ["/", ["+", ["get", "pop_white"], ["get", "pop_black"]], 
+                    "interpolate-hcl", ["linear"],
+                    ["-", 1, ["/", ["+", ["get", "pop_white"], ["get", "pop_black"]],
                         ["get", "pop"]]], // value
                     0.35, "rgba(255, 255, 255, 0)",
                     1, "#10a0d5",
@@ -63,7 +63,7 @@ Qualtrics.SurveyEngine.addOnload(function() {
     if (group == null || group.trim() === "") group = "C";
 
     var zoomTo = Qualtrics.SurveyEngine.getEmbeddedData("start_zoom");
-    if (zoomTo == null || zoomTo.trim() === "") zoomTo = 14;
+    if (zoomTo == null || zoomTo.trim() === "") zoomTo = 5;
 
     var city = Qualtrics.SurveyEngine.getEmbeddedData("city_group");
     if (city === null || city.trim() === "") city = DEFAULT_CITY;

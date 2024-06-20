@@ -28,7 +28,7 @@ d = get_decennial(geography = "tract", variables=vars, state="NC",
                   output="wide", geometry=T, year = 2020)
 
 # remove empty geometries
-#d = d[!st_is_empty(d),]
+d = d[!st_is_empty(d),]
 
 cat("Census data downloaded.\n")
 
@@ -42,7 +42,7 @@ state_fips = unique(str_sub(d$GEOID, 1, 2))
 # make graph
 {
 g = poly2nb(d, queen=F)
-ids = str_sub(d$GEOID, 4)
+ids = str_sub(d$GEOID, 6)
 class(g) = "list"
 names(g) = ids
 g = map(g, ~ ids[.])
@@ -54,7 +54,7 @@ cat("Adjacency graph created.\n")
 
 mbtile_name = paste0("R/data/", TILESET_ID, ".mbtiles")
 d %>%
-    mutate(GEOID = str_sub(GEOID, 4)) %>%
+    mutate(GEOID = str_sub(GEOID, 6)) %>%
 tippecanoe(mbtile_name,
           # output = glue('~/Research_Group Dropbox/Jacob Brown/legislator_maps/{mbtile_name}'),
            layer_name="tracts",
