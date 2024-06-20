@@ -8,7 +8,7 @@ library(mapboxapi)
 TILESET_ID = "north-carolina"
 
 # Jake's mapbox info
-MAPBOX_SECRET_TOKEN = 'sk.eyJ1IjoiamFrZXJicm93biIsImEiOiJjbHhuYmlsbGcwMjExMmpwdzl4NTBsd3g1In0.kBHMzcji6Ddv2uyY2xmAJA'
+MAPBOX_SECRET_TOKEN = read_file('~/Desktop/Docs/MAPBOX_SECRET_KEY.txt')
 MAPBOX_USERNAME = "jakerbrown"
 
 # Jake's census api key
@@ -28,7 +28,7 @@ d = get_decennial(geography = "tract", variables=vars, state="NC",
                   output="wide", geometry=T, year = 2020)
 
 # remove empty geometries
-d = d[!st_is_empty(d),]
+#d = d[!st_is_empty(d),]
 
 cat("Census data downloaded.\n")
 
