@@ -58,15 +58,15 @@ d %>%
 tippecanoe(mbtile_name,
           # output = glue('~/Research_Group Dropbox/Jacob Brown/legislator_maps/{mbtile_name}'),
            layer_name="tracts",
-           min_zoom=10, # will need to mess around with this to find right starting point
-          max_zoom=12, # will need to mess around with this
+           min_zoom=10,
+          max_zoom=12,
            other_options="--coalesce-densest-as-needed --detect-shared-borders")
 cat("Vector tiles created.\n")
 
 
 upload_tiles(input=mbtile_name, access_token=MAPBOX_SECRET_TOKEN,
              username=MAPBOX_USERNAME, tileset_id=TILESET_ID,
-             tileset_name=paste0(TILESET_ID, "_z10_z12"), multipart=TRUE)
+             tileset_name=paste0(TILESET_ID), multipart=TRUE)
 cat("Tileset uploaded.\n")
 
 spec = read_json("assets/boston.json", simplifyVector=T) # copy boston json and swap out lat lon bounds for our state
