@@ -6,8 +6,12 @@ library(spdep)
 library(jsonlite)
 library(mapboxapi)
 TILESET_ID = "north-carolina"
-assign('MAPBOX_SECRET_TOKEN', 'sk.eyJ1IjoiamFrZXJicm93biIsImEiOiJjbHhuYmlsbGcwMjExMmpwdzl4NTBsd3g1In0.kBHMzcji6Ddv2uyY2xmAJA', envir = .GlobalEnv)
+
+# Jake's mapbox info
+MAPBOX_SECRET_TOKEN = 'sk.eyJ1IjoiamFrZXJicm93biIsImEiOiJjbHhuYmlsbGcwMjExMmpwdzl4NTBsd3g1In0.kBHMzcji6Ddv2uyY2xmAJA'
 MAPBOX_USERNAME = "jakerbrown"
+
+# Jake's census api key
 census_api_key("880acd38892508a49cdddab4206d05c32ed8dee6", overwrite = FALSE, install = FALSE)
 
 
