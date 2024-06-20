@@ -58,7 +58,7 @@ d %>%
 tippecanoe(mbtile_name,
           # output = glue('~/Research_Group Dropbox/Jacob Brown/legislator_maps/{mbtile_name}'),
            layer_name="tracts",
-           min_zoom=10,
+           min_zoom=0,
           max_zoom=12,
            other_options="--coalesce-densest-as-needed --detect-shared-borders")
 cat("Vector tiles created.\n")
