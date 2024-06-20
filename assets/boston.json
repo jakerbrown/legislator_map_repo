@@ -1,0 +1,20 @@
+{
+    "units": {
+        "name": "Blocks",
+        "id": "blocks",
+        "idColumn": {
+            "key": "GEOID",
+            "name": "GEOID"
+        },
+        "bounds": [[-71.3,42.2],[-70.8,42.5]],
+        "zoomTo": 14,
+        "tileset": {
+            "type": "fill",
+            "source": {
+                "type": "vector",
+                "url": "mapbox://cmccartan.boston_blocks_v2"
+            },
+            "sourceLayer": "blocks"
+        }
+    }
+}

@@ -1,0 +1,158 @@
+@import "base";
+@import "colors";
+@import "map";
+@import "links";
+@import "shadows";
+@import "mapbox-gl";
+@import "components/toolbar";
+@import "components/charts";
+@import "components/tooltip";
+@import "components/button";
+
+#root {
+    display: block;
+    padding: 1rem;
+    max-width: 800px; 
+    margin: 0 auto;
+}
+
+.districtr__embed-container {
+    display: flex;
+    flex-direction: column;
+    background: white;
+}
+
+#ns__container {
+    width: 100%;
+    max-width: 800px;
+    height: 600px;
+    max-height: 75vh;
+    margin: 1rem 0;
+    border: 1px solid $outline-grey;
+    overscroll-behavior: none;
+}
+
+.ns__msg {
+    background: #ffc0ba;
+    padding: 1em;
+    margin: -0.75em 0 0.25em;
+    height: 3em;
+    line-height: 1.2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+#ns__address-go {
+    color: white;
+    outline: none;
+    border: none;
+    margin: 0 0 0 0.5em;
+    padding: 0.5rem;
+    font-weight: 400;
+    font-family: $font-family;
+    font-size: 1.5rem;
+
+    transition: all ease 40ms;
+
+    border-radius: 0.25rem;
+    background: $districtr-red;
+}
+
+#ns__clear-all {
+    color: white;
+    outline: none;
+    border: none;
+    padding: 0.5rem;
+    font-weight: 400;
+    font-family: $font-family;
+    font-size: 1.2rem;
+
+    transition: all ease 40ms;
+
+    border-radius: 0.25rem;
+    background: $districtr-red;
+}
+
+#ns__address-go:hover, #ns__clear-all:hover {
+    cursor: pointer;
+    background: $districtr-red-dark;
+}
+
+#ns__address-go:active, #ns__clear-all:active {
+    background: $districtr-red-dark;
+}
+
+#ns__address-go:focus, #ns__clear-all:focus {
+    box-shadow: $focus-shadow;
+}
+
+#ns__address-go:disabled {
+    background: #bdaaa8;
+    color: #504746;
+}
+
+
+#ns__address-box {
+    margin: 0.5em 0; flex-grow: 1;
+    outline: none;
+    border: 1px solid $outline-grey;
+    margin: 0;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    font-size: 1.5rem;
+    color: #111;
+    font-family: $font-family;
+}
+
+input[type="search"] {
+    -webkit-appearance: textfield;
+}
+
+input[type="search"]::-webkit-search-decoration {
+    display: none;
+    -webkit-appearance: none;
+}
+
+.districtr__mini-toolbar {
+    border-top: 1px solid $outline-grey;
+}
+.districtr__mini-toolbar .icon-list__item__radio {
+    background-color: transparent;
+}
+.districtr__mini-toolbar-top {
+    background-color: $districtr-light-grey;
+}
+
+.Skin #Buttons #NextButton {
+    margin-right: 8px
+}
+.Skin #Buttons #PreviousButton {
+    margin-left: 8px
+}
+
+.Skin div#Plug {
+    margin-top: 0;
+}
+
+.stop-scrolling { 
+    overflow: hidden !important; 
+    -webkit-overflow-scrolling: auto;
+}
+
+body {
+    height: 100vh;
+    overscroll-behavior: none;
+}
+
+// consent form
+#QID5 .QuestionText p span, #QID5 .QuestionText p {
+    font-size: 11pt !important;
+    line-height: 1.15 !important;
+    font-family: unset !important;
+    color: unset !important;
+}
+
+.QuestionText p, .QuestionText {
+    line-height: 1.3 !important;
+}
