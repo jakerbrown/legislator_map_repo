@@ -54,7 +54,7 @@ cat("Adjacency graph created.\n")
 
 mbtile_name = paste0("R/data/", TILESET_ID, ".mbtiles")
 d %>%
-    mutate(GEOID = str_sub(GEOID, 6)) %>%
+    mutate(GEOID = str_sub(GEOID, 4)) %>%
 tippecanoe(mbtile_name,
           # output = glue('~/Research_Group Dropbox/Jacob Brown/legislator_maps/{mbtile_name}'),
            layer_name="tracts",
