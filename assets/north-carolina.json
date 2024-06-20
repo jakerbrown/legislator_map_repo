@@ -1,1 +1,1 @@
-{"units":{"name":"Blocks","id":"blocks","idColumn":{"key":"GEOID","name":"GEOID"},"bounds":[[-84.3219,33.8423],[-75.4606,36.5881]],"zoomTo":14,"tileset":{"type":"fill","source":{"type":"vector","url":"mapbox://jakerbrown.north-carolina"},"sourceLayer":"blocks"}}}
+{"units":{"name":"Tracts","id":"tracts","idColumn":{"key":"GEOID","name":"GEOID"},"bounds":[[-84.3219,33.8423],[-75.4606,36.5881]],"zoomTo":5,"tileset":{"type":"fill","source":{"type":"vector","url":"mapbox://jakerbrown.north-carolina"},"sourceLayer":"blocks"}}}
