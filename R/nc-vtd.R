@@ -57,7 +57,7 @@ d %>%
   #  mutate(GEOID = str_sub(GEOID, 4)) %>%
 tippecanoe(mbtile_name,
           # output = glue('~/Research_Group Dropbox/Jacob Brown/legislator_maps/{mbtile_name}'),
-           layer_name="tracts",
+           layer_name="vtds",
            min_zoom=0,
           max_zoom=12,
            other_options="--coalesce-densest-as-needed --detect-shared-borders")
