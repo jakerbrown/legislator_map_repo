@@ -15,9 +15,9 @@ export class EmbeddedDistrictr {
         this.render = this.render.bind(this);
         mapboxgl.accessToken = module.token;
 
-        options = { 
-            style: "mapbox://styles/mapbox/outdoors-v11", 
-            ...options 
+        options = {
+            style: "mapbox://styles/mapbox/outdoors-v11",
+            ...options
         };
 
         const targetElement = document.querySelector(target);
@@ -134,6 +134,8 @@ export class EmbeddedDistrictr {
                         this.map.keyboard.disable();
                         this.map.doubleClickZoom.disable();
                         this.map.touchZoomRotate.disable();
+                        if(!! module.callback)
+                        module.callback(this);
                     };
 
                     this.disableMap();
@@ -171,7 +173,7 @@ export class EmbeddedDistrictr {
             visited[id] = false;
             total++;
         }
-        
+
         let walkNeighborhood = function(visited, node) {
             let desc = 1;
             visited[node] = true;
@@ -199,7 +201,7 @@ export class EmbeddedDistrictr {
     }
 
     loadAddress(str, searchBox) {
-        let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(str)}.json` + 
+        let url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(str)}.json` +
             `?autocomplete=false&limit=1&bbox=` +
             this.bounds[0][0] + "," +
             this.bounds[0][1] + "," +
@@ -208,7 +210,7 @@ export class EmbeddedDistrictr {
             `&access_token=${mapboxgl.accessToken}`;
 
         fetch(url)
-            .then(x => x.json()) 
+            .then(x => x.json())
             .then(d => {
                 if (d.features.length == 0) {
                     this.showError("Address not found.");
@@ -227,7 +229,7 @@ export class EmbeddedDistrictr {
                 this.addressMarker = new mapboxgl.Marker({ color: "#ff4f49" })
                     .setLngLat(center)
                     .addTo(this.map);
-                
+
                 // color block once zoomed
                 let colored = false;
                 let colorBlock = (function() {
@@ -263,7 +265,7 @@ export class EmbeddedDistrictr {
                 });
 
                 // zoom to
-                this.map.easeTo({ 
+                this.map.easeTo({
                     center,
                     zoom: this.zoomTo,
                 });
@@ -314,11 +316,11 @@ window.showError = function(msg, sel="#ns__msg-search") {
 
 window.BivariateOverlay = function(opts) {
     return {
-        "fill-color": ["interpolate-hcl", 
-            ["linear"], 
-            ["case", ["==", opts.denominator || ["get", "pop"], 0], 
+        "fill-color": ["interpolate-hcl",
+            ["linear"],
+            ["case", ["==", opts.denominator || ["get", "pop"], 0],
                 opts.midpt || 0.5,
-                ["/", opts.numerator || ["get", "gop"], 
+                ["/", opts.numerator || ["get", "gop"],
                     opts.denominator || ["get", "pop"]], // value
             ],
             0, opts.colorLow || "rgb(30, 60, 210)",
@@ -331,11 +333,11 @@ window.BivariateOverlay = function(opts) {
 
 window.UnivariateOverlay = function(opts) {
     return {
-        "fill-color": ["interpolate-hcl", 
-            ["linear"], 
-            ["case", ["==", opts.denominator || ["get", "pop"], 0], 
+        "fill-color": ["interpolate-hcl",
+            ["linear"],
+            ["case", ["==", opts.denominator || ["get", "pop"], 0],
                 0,
-                ["/", opts.numerator || ["get", "dem"], 
+                ["/", opts.numerator || ["get", "dem"],
                     opts.denominator || ["get", "pop"]], // value
             ],
             0, "rgba(255, 255, 255, 0)",
