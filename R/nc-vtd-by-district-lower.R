@@ -54,8 +54,8 @@ vtds = get_decennial(geography = "voting district", variables=vars, state="NC",
                   output="wide", geometry=T, year = 2020)
 
 
-baf <- baf::baf('NC', year = 2022)$SLDL |>
-  left_join(baf::baf('NC', year = 2022)$VTD |>
+baf <- baf::baf('NC', year = 2024)$SLDL |>
+  left_join(baf::baf('NC', year = 2020)$VTD |>
               select(BLOCKID, COUNTYFP, VTD = DISTRICT)) |>
   mutate(GEOID = paste0('37', COUNTYFP, VTD)) 
 
