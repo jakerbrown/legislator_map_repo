@@ -1,3 +1,6 @@
+rm(list=ls())
+gc()
+
 library(tidycensus)
 library(tidyverse)
 library(vroom)
@@ -5,6 +8,30 @@ library(sf)
 library(spdep)
 library(jsonlite)
 library(mapboxapi)
+library(glue)
+
+
+###
+library(here)
+library(cli)
+library(fs)
+
+# alarm project ----
+library(geomander)
+library(censable)
+library(PL94171)
+library(redist)
+library(redistmetrics)
+library(divseg)
+# library(ggredist)
+
+# other data ----
+library(tigris)
+library(tinytiger)
+
+
+
+###
 TILESET_ID = "north-carolina-vtd"
 
 # Jake's mapbox info
@@ -27,6 +54,13 @@ vars = c(pop="P1_001N"
 d = get_decennial(geography = "voting district", variables=vars, state="NC",
                   output="wide", geometry=T, year = 2020)
 
+
+baf <- baf::baf('NC', year = 2020)$SLDL |>
+  left_join(baf::baf('NC', year = 2020)$VTD |>
+              select(BLOCKID, COUNTYFP, VTD = DISTRICT)) |>
+  mutate(GEOID = paste0('37', COUNTYFP, VTD)) 
+
+
 # remove empty geometries
 d = d[!st_is_empty(d),]
 
@@ -38,7 +72,9 @@ cat("Census data downloaded.\n")
 
 state_fips = unique(str_sub(d$GEOID, 1, 2))
 
-
+REPLACE = F
+for(dist in unique(baf$District)){
+if(!file.exists(glue('assets/north-carolina-vtd.json')) | REPLACE){
 # make graph
 {
 g = poly2nb(d, queen=F)
@@ -74,3 +110,6 @@ spec$units$bounds = matrix(st_bbox(d), nrow=2, byrow=T)
 spec$units$tileset$source$url = str_glue("mapbox://{MAPBOX_USERNAME}.{TILESET_ID}")
 write_json(spec, paste0("assets/", TILESET_ID, ".json"), auto_unbox=T)
 cat("Specification written.\n")
+
+}
+}

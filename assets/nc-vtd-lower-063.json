@@ -1,0 +1,1 @@
+{"units":{"name":"Voting Districts","id":"vtds","idColumn":{"key":"GEOID","name":"GEOID"},"bounds":[[-79.5351,35.8669],[-79.1368,36.4051]],"zoomTo":6,"tileset":{"type":"fill","source":{"type":"vector","url":"mapbox://jakerbrown.nc-vtd-lower-063"},"sourceLayer":"vtds"}}}
