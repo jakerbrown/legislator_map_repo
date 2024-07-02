@@ -61,7 +61,7 @@ blocks = get_decennial(geography = "block", variables=vars, state="NC",
 #baf::baf('NC', year = 2024, geographies = 'ssd') # upper
 #baf::baf('NC', year = 2024, geographies = 'shd') # lower
 
-baf <- baf::baf('NC', year = 2022, geographies = 'shd')$SHD2022
+baf <- baf::baf('NC', year = 2022, geographies = 'ssd')$SSD2022
   # switch to 2024 after nov. election
  
 
@@ -78,12 +78,12 @@ cat("Census data downloaded.\n")
 state_fips = unique(str_sub(blocks$GEOID, 1, 2))
 
 REPLACE = F
-for(dist in unique(baf$SLDLST)){
-if(!file.exists(glue('assets/nc-blk-l-{dist}.json')) | REPLACE){
-  TILESET_ID = glue("nc-blk-l-{dist}")
+for(dist in unique(baf$SLDUST)){
+if(!file.exists(glue('assets/nc-blk-u-{dist}.json')) | REPLACE){
+  TILESET_ID = glue("nc-blk-u-{dist}")
   
   d <- blocks |> 
-    filter(GEOID %in% baf$GEOID[baf$SLDLST==dist])
+    filter(GEOID %in% baf$GEOID[baf$SLDUST==dist])
   
 # # make graph
 # {
