@@ -25,14 +25,6 @@ Qualtrics.SurveyEngine.addOnload(function() {
         token: MAPBOX_TOKEN,
         url: BASE_URL + "-" + CHAMBER + "-" + DISTRICT + ".json",
 		// graph: ADJACENCY,
-		    overlayRule: {
-      "fill-color": ["interpolate-hcl", 
-                     ["linear"], 
-                     ["get", "pop"],
-                     "#c44075",
-      ],
-      "fill-opacity": 0.45,
-    },
         errors: window.showError,
         		allowProceed: (function(allow) {
             if (allow) this.enableNextButton();

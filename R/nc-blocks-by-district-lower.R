@@ -50,20 +50,20 @@ vars = c(pop="P1_001N"
          #pop_hisp="P001002"
          )
 
-vtds = get_decennial(geography = "voting district", variables=vars, state="NC",
-                  output="wide", geometry=T, year = 2020)
+# vtds = get_decennial(geography = "voting district", variables=vars, state="NC",
+#                   output="wide", geometry=T, year = 2020)
 
 
 blocks = get_decennial(geography = "block", variables=vars, state="NC",
                      output="wide", geometry=T, year = 2020)
 
 
+#baf::baf('NC', year = 2024, geographies = 'ssd') # upper
+#baf::baf('NC', year = 2024, geographies = 'shd') # lower
 
-
-baf <- baf::baf('NC', year = 2024)$SLDL |>
-  left_join(baf::baf('NC', year = 2020)$VTD |>
-              select(BLOCKID, COUNTYFP, VTD = DISTRICT)) |>
-  mutate(GEOID = paste0('37', COUNTYFP, VTD)) 
+baf <- baf::baf('NC', year = 2022, geographies = 'shd')$SHD2022
+  # switch to 2024 after nov. election
+ 
 
 
 # remove empty geometries
@@ -75,35 +75,35 @@ cat("Census data downloaded.\n")
 
 
 
-state_fips = unique(str_sub(vtds$GEOID, 1, 2))
+state_fips = unique(str_sub(blocks$GEOID, 1, 2))
 
-REPLACE = F
-for(dist in unique(baf$DISTRICT)){
-if(!file.exists(glue('assets/north-carolina-vtd-{dist}.json')) | REPLACE){
-  TILESET_ID = glue("nc-vtd-lower-{dist}")
+REPLACE = T
+for(dist in unique(baf$SLDLST)){
+if(!file.exists(glue('assets/north-carolina-blocks-{dist}.json')) | REPLACE){
+  TILESET_ID = glue("nc-blk-l-{dist}")
   
   d <- blocks |> 
-    filter(GEOID %in% baf$BLOCKID[baf$DISTRICT==dist])
+    filter(GEOID %in% baf$GEOID[baf$SLDLST==dist])
   
-# make graph
-{
-g = poly2nb(d, queen=F)
-ids = d$GEOID
-class(g) = "list"
-names(g) = ids
-g = map(g, ~ ids[.])
-
-write_json(g, paste0("assets/", TILESET_ID, "_graph.json"))
-}
-cat("Adjacency graph created.\n")
+# # make graph
+# {
+# g = poly2nb(d, queen=F)
+# ids = d$GEOID
+# class(g) = "list"
+# names(g) = ids
+# g = map(g, ~ ids[.])
+# 
+# write_json(g, paste0("assets/", TILESET_ID, "_graph.json"))
+# }
+# cat("Adjacency graph created.\n")
 
 
 mbtile_name = paste0("R/data/", TILESET_ID, ".mbtiles")
 d %>%
-    mutate(pop = 1) %>%
+   # mutate(pop = 1) %>%
 tippecanoe(mbtile_name,
           # output = glue('~/Research_Group Dropbox/Jacob Brown/legislator_maps/{mbtile_name}'),
-           layer_name="vtds",
+           layer_name="blocks",
            min_zoom=0,
           max_zoom=12,
            other_options="--coalesce-densest-as-needed --detect-shared-borders")
@@ -115,7 +115,7 @@ upload_tiles(input=mbtile_name, access_token=MAPBOX_SECRET_TOKEN,
              tileset_name=paste0(TILESET_ID), multipart=TRUE)
 cat("Tileset uploaded.\n")
 
-spec = read_json("assets/north-carolina-vtd.json", simplifyVector=T) # copy template json and swap out lat lon bounds for our state
+spec = read_json("assets/boston.json", simplifyVector=T) # copy template json and swap out lat lon bounds for our state
 spec$units$bounds = matrix(st_bbox(d), nrow=2, byrow=T)
 spec$units$tileset$source$url = str_glue("mapbox://{MAPBOX_USERNAME}.{TILESET_ID}")
 write_json(spec, paste0("assets/", TILESET_ID, ".json"), auto_unbox=T)
