@@ -1,0 +1,1 @@
+{"units":{"name":"Blocks","id":"blocks","idColumn":{"key":"GEOID","name":"GEOID"},"bounds":[[-79.0163,35.8632],[-78.8874,35.9869]],"zoomTo":14,"tileset":{"type":"fill","source":{"type":"vector","url":"mapbox://jakerbrown.nc-blk-l-029"},"sourceLayer":"blocks"}}}
