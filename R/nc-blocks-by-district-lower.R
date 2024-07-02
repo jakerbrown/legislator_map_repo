@@ -77,9 +77,9 @@ cat("Census data downloaded.\n")
 
 state_fips = unique(str_sub(blocks$GEOID, 1, 2))
 
-REPLACE = T
-for(dist in unique(baf$SLDLST)){
-if(!file.exists(glue('assets/north-carolina-blocks-{dist}.json')) | REPLACE){
+REPLACE = F
+for(dist in unique(baf$SLDLST)[1:10]){
+if(!file.exists(glue('assets/nc-blk-l-{dist}.json')) | REPLACE){
   TILESET_ID = glue("nc-blk-l-{dist}")
   
   d <- blocks |> 
